@@ -4,6 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
+import { useState } from "react";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
@@ -64,6 +65,24 @@ const AuthShowcase: React.FC = () => {
     { enabled: sessionData?.user !== undefined },
   );
 
+  const [email, setEmail] = useState('');
+
+  function handleChange(e) {
+    setEmail(e.target.value)
+  }
+
+  async function handleClick() {
+    console.log('Clicked stuff');
+    
+    const res = await fetch('/api/add-user', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email
+      })
+    })
+    console.log('json sent');
+  }
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
@@ -76,6 +95,9 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
+      {!sessionData && (<>
+        <input onChange={handleChange} value={email} type="text" placeholder="Email" /><button onClick={handleClick} className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20">Sign up</button>
+      </>)}
     </div>
   );
 };
