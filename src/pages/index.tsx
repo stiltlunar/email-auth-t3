@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
-import { useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FormEvent, ReactElement, ReactEventHandler, ReactHTMLElement, useState } from "react";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
@@ -67,7 +67,7 @@ const AuthShowcase: React.FC = () => {
 
   const [email, setEmail] = useState('');
 
-  function handleChange(e) {
+  function handleChange(e: any) {
     setEmail(e.target.value)
   }
 
