@@ -95,9 +95,6 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
-      {!sessionData && (<>
-        <input onChange={handleChange} value={email} type="text" placeholder="Email" /><button onClick={handleClick} className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20">Sign up</button>
-      </>)}
     </div>
   );
 };
